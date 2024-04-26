@@ -4,6 +4,14 @@
 
 using namespace std;
 
+class Efficiency_Exception : public std::exception {
+	private:
+		std::string msg_;
+	public:
+		Efficiency_Exception(const std::string& message) : msg_(message) {}
+		const char* what() const noexcept override {return msg_.c_str();}
+};
+
 class Vehicle {
 	protected:
 		double weight;

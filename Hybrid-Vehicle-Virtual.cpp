@@ -16,6 +16,8 @@ double Vehicle::calcFuelEfficiency() {
 
 
 double Gasoline::calcFuelEfficiency(double mpg) {
+	if (mpg==0) throw Efficiency_Exception("invalid mpg");
+	
 	double average_cost_per_gallon = 3.72;
 	cout << "Gas miles per dollar:" << mpg / average_cost_per_gallon << endl;
 	return mpg / average_cost_per_gallon;
@@ -26,12 +28,17 @@ void Gasoline::Stop() {cout << "Gasoline vehicle STOP";}
 
 
 double Electric::calcFuelEfficiency(double mpge) {
+	if (mpge==0) throw Efficiency_Exception("invalid mpge");
+	
 	double average_cost_per_kWh = .24;
 	double kWh_per_gallon = 33.7;
-	return average_cost_per_kWh * kWh_per_gallon;
 
-	cout << "Elec miles per dollar:" << ((kWh_per_mile * average_cost_per_kWh) / mpge) << endl;
-	return ((kWh_per_mile * average_cost_per_kWh) / mpge);
+	double miles_per_kWh = mpge / kWh_per_gallon;
+	double dollars_per_mile = average_cost_per_kWh / miles_per_kWh;
+	double miles_per_dollar = 1 / dollars_per_mile;
+
+	cout << "Elec miles per dollar:" << miles_per_dollar << endl;
+	return miles_per_dollar;
 }
 
 void Electric::Start() {
